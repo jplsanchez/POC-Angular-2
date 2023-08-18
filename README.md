@@ -1,2 +1,4 @@
 # POC-Angular-2
-Practising Angular
+
+Projects based on: https://angular.io/tutorial/
+
