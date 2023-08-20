@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Hero } from './hero';
+import { Observable, of } from 'rxjs';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +19,17 @@ export class HeroService {
     { id: 20, name: 'Tornado' },
   ];
 
-  constructor() {}
+  constructor(private messageService: MessageService) {}
 
-  getHeroes(): Hero[] {
-    return this.HEROES;
+  getHeroes(): Observable<Hero[]> {
+    const heroes = of(this.HEROES);
+    this.messageService.add('HeroService: fetched heroes');
+    return heroes;
+  }
+
+  getHero(id: number): Observable<Hero> {
+    const hero = this.HEROES.find((h) => h.id === id)!;
+    this.messageService.add(`HeroService: fetched hero id=${id}`);
+    return of(hero);
   }
 }
